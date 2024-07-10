@@ -1,5 +1,6 @@
 package me.wtfmano.license
 
+import de.florianmichael.viamcp.ViaMCP
 import me.austin.rush.FastEventBus
 import me.wtfmano.license.system.module.ModuleManager
 import java.util.concurrent.ThreadLocalRandom
@@ -7,10 +8,10 @@ import java.util.concurrent.ThreadLocalRandom
 open class License {
     companion object {
         @JvmStatic
-        val eventbus = FastEventBus()
+        val EVENT_BUS = FastEventBus()
 
         @JvmStatic
-        val moduleManager = ModuleManager()
+        val MODULE_MANAGER = ModuleManager()
 
         @JvmStatic
         val clientName = "License"
@@ -29,7 +30,11 @@ open class License {
 
         @JvmStatic
         fun init() {
-            moduleManager.loadModules()
+            try {
+                ViaMCP.create()
+            } catch (_: Exception) {}
+
+            MODULE_MANAGER.loadModules()
         }
 
         @JvmStatic
